@@ -1,471 +1,670 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trilha de Treinamento - Olist ERP</title>
-    
-    <!-- Google Fonts: Inter para Títulos, Roboto para Corpo -->
+    <title>Trilha de Treinamento Olist ERP - Casa Goianita</title>
+
+    <!-- Google Fonts: Inter para Títulos, Poppins para Corpo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* --- Tokens V6.0 (Live Consultoria) --- */
+        /* --- Tokens V6.0 (Live Consultoria & Casa Goianita) --- */
         :root {
             --live-deep: #06192a;
+            --live-dark: #030d17;
             --live-glass: rgba(10, 36, 61, 0.70);
             --live-glass-hover: rgba(15, 45, 75, 0.85);
             --glass-blur: blur(16px) saturate(180%);
+            /* Olist Green / Goianita Vibe */
             --live-accent: #00d1b2;
             --live-accent-glow: rgba(0, 209, 178, 0.4);
-            --live-text-primary: #e0e6ed;
+            --live-accent-dim: rgba(0, 209, 178, 0.15);
+            /* Gradiente Cinético */
+            --kinetic-gradient: linear-gradient(90deg, #ffffff 0%, #cccccc 40%, var(--live-accent) 100%);
+            /* Textos */
+            --live-text-primary: #f8fafc;
             --live-text-secondary: #94a3b8;
-            --live-border: rgba(255, 255, 255, 0.05);
+            /* Bordas e Sombras */
+            --live-border: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(0, 209, 178, 0.4);
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--live-deep);
+            background-color: var(--live-dark);
             color: var(--live-text-primary);
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            padding: 2rem;
-            /* Efeito de iluminação sutil no fundo (Flashlight/Glow) */
-            background-image: radial-gradient(circle at top right, rgba(0, 209, 178, 0.05), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(10, 36, 61, 0.8), transparent 40%);
-            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
+        /* --- Textura de Fundo / Identidade Visual Goianita --- */
+        .bg-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('./assets/goianita_logo.png');
+            background-repeat: repeat;
+            background-size: 300px;
+            opacity: 0.03;
+            /* Extremamente sutil para não poluir a leitura */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Iluminação de Fundo */
+        .bg-glow {
+            position: fixed;
+            top: -20vh;
+            left: 50vw;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, var(--live-accent-dim), transparent 60%);
+            transform: translateX(-50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- Tipografia Global --- */
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Inter', sans-serif;
-            color: var(--live-text-primary);
             font-weight: 600;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .kinetic-text {
+            background: var(--kinetic-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: kineticFlow 6s linear infinite;
+        }
+
+        @keyframes kineticFlow {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* --- Estrutura da Página --- */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            padding-top: 2rem;
+            padding: 80px 20px 60px;
+            border-bottom: 1px solid var(--live-border);
+            margin-bottom: 40px;
+        }
+
+        header .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 16px 32px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--live-border);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        header .logo-container img {
+            height: 48px;
+            object-fit: contain;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: var(--live-accent);
-            text-shadow: 0 0 20px var(--live-accent-glow);
-            margin-bottom: 0.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         header p {
             color: var(--live-text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
         }
 
         /* --- Grid & Organismos --- */
-        .module-section {
-            margin-bottom: 4rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+        .section-header {
+            text-align: center;
+            margin: 60px 0 40px;
         }
 
-        .module-title {
-            font-size: 1.8rem;
-            border-bottom: 1px solid var(--live-border);
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
+        .section-header h2 {
+            font-size: 2.2rem;
             display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--live-accent);
+        }
+
+        .section-header p {
+            color: var(--live-text-secondary);
+            margin-top: 10px;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
-        /* --- Glass Cards (Moléculas) --- */
+        /* --- Glass Cards (Módulos) --- */
         .glass-card {
             background: var(--live-glass);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--live-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.4s var(--spring-bounce), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--kinetic-gradient);
+            background-size: 200% auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .glass-card:hover {
             background: var(--live-glass-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border-color: var(--border-active);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+            animation: kineticFlow 3s linear infinite;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(0, 209, 178, 0.1);
+            color: var(--live-accent);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 209, 178, 0.2);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .module-icon {
+            font-size: 1.5rem;
+            color: var(--live-text-secondary);
         }
 
         .glass-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--live-accent);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            line-height: 1.3;
         }
 
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--live-border);
-            background-color: #000;
+        .glass-card>p {
+            color: var(--live-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            flex-grow: 1;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* --- Accordion para Passo a Passo (Acessibilidade) --- */
+        /* --- Accordion Elegante --- */
         details {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--live-border);
-            border-radius: 8px;
-            margin-top: auto; /* Empurra para o final do card */
+            border-radius: 10px;
+            margin-top: auto;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            border-color: rgba(0, 209, 178, 0.3);
+            background: rgba(0, 209, 178, 0.03);
         }
 
         summary {
-            padding: 1rem;
+            padding: 16px;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
             cursor: pointer;
             outline: none;
             color: var(--live-text-primary);
-            transition: color 0.3s ease;
-            list-style: none; /* Remove seta padrão em alguns browsers */
+            transition: color 0.3s ease, background 0.3s ease;
+            list-style: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            font-size: 0.95rem;
         }
-        
+
         summary::-webkit-details-marker {
             display: none;
         }
 
         summary::after {
-            content: '+';
+            content: '\f107';
+            /* FontAwesome angle-down */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
             color: var(--live-accent);
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         details[open] summary::after {
-            content: '−';
-            transform: rotate(180deg);
+            transform: rotate(-180deg);
         }
 
         summary:hover {
             color: var(--live-accent);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        /* Focus Visible para Acessibilidade Absoluta */
         summary:focus-visible {
-            box-shadow: 0 0 0 2px var(--live-accent);
-            border-radius: 8px;
+            box-shadow: inset 0 0 0 2px var(--live-accent);
         }
 
         .step-content {
-            padding: 0 1rem 1rem 1rem;
-            color: var(--live-text-secondary);
+            padding: 0 16px 20px 16px;
+            color: #cbd5e1;
             font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 5px;
+            padding-top: 15px;
+            animation: accordionFade 0.4s ease;
         }
 
-        .step-content p {
-            margin-bottom: 0.8rem;
+        @keyframes accordionFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
+        .step-content ul,
         .step-content ol {
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
+            padding-left: 20px;
+            margin-bottom: 12px;
         }
 
         .step-content li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .step-content li::marker {
+            color: var(--live-accent);
+            font-weight: bold;
         }
 
         .step-content strong {
-            color: var(--live-text-primary);
+            color: #ffffff;
+            font-weight: 600;
         }
 
-        /* --- Tags de Status --- */
-        .tag {
-            display: inline-block;
-            background: rgba(0, 209, 178, 0.1);
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--live-border);
+            color: var(--live-text-secondary);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        footer span {
             color: var(--live-accent);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(0, 209, 178, 0.2);
-            align-self: flex-start;
         }
 
         /* --- Responsividade --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
+        @media (max-width: 992px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 2.8rem;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 15px 40px;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Trilha Especialista Olist ERP</h1>
-        <p>Capacitação operacional e gerencial - Padrão Live Consultoria</p>
-    </header>
+    <!-- Elementos de Background -->
+    <div class="bg-texture"></div>
+    <div class="bg-glow"></div>
 
-    <!-- MÓDULO 1 -->
-    <section class="module-section">
-        <h2 class="module-title">Módulo 1: Fundamentos e Cadastros (Backoffice)</h2>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header>
+            <div class="logo-container">
+                <!-- Usando a imagem da Goianita copiada -->
+                <img src="./assets/goianita_logo.png" alt="Logo Casa Goianita"
+                    onerror="this.src='https://placehold.co/200x60/06192a/00d1b2?text=Casa+Goianita'">
+                <i class="fa-solid fa-xmark"
+                    style="margin: 0 20px; color: var(--live-text-secondary); font-size: 1.2rem;"></i>
+                <img src="https://olist.com/wp-content/uploads/2021/08/logo-olist-white.svg" alt="Logo Olist ERP"
+                    style="height: 35px;">
+            </div>
+            <h1 class="kinetic-text">Plataforma de Treinamento e Operação</h1>
+            <p>Guia definitivo de onboarding, integração e configuração de ERP Olist para a arquitetura omnicanal da
+                Casa Goianita. (Protocolo V6.0)</p>
+        </header>
+
+        <!-- SESSÃO 1: MENTORIA DE IMPLEMENTAÇÃO -->
+        <div class="section-header">
+            <h2>Trilha 1: Mentoria de Implementação</h2>
+            <p>Direcionado para Lojistas e Operadores Finais - Configuração Inicial e Rotina Diária</p>
+        </div>
+
         <div class="grid-container">
-            
-            <!-- Card 1.1 -->
+
+            <!-- Módulo 1 -->
             <div class="glass-card">
-                <span class="tag">Gestão</span>
-                <h3>1.1 Cadastro de Vendedores e Equipe</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/3fMSkZir7Xg" allowfullscreen title="Tutorial Cadastro de Vendedores"></iframe>
+                <div class="card-header">
+                    <span class="tag">Setup Inicial</span>
+                    <i class="fa-solid fa-gears module-icon"></i>
                 </div>
+                <h3>Módulo 1: Configurações & Integrações</h3>
+                <p>Instruções primárias para o cadastro da empresa, setup de canais de venda e configuração de
+                    parâmetros básicos do sistema.</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Cadastros > Vendedores</strong>.</li>
-                            <li>Clique em <strong>Incluir Vendedor</strong> no canto superior direito.</li>
-                            <li>Preencha os dados pessoais básicos. O único campo estritamente obrigatório nesta etapa inicial é o nome.</li>
-                            <li>No campo <em>Situação</em>, escolha: 
-                                <ul>
-                                    <li><strong>Ativo com acesso ao sistema:</strong> Permite login próprio (exige que você crie um "Usuário" associado na seção 'Dados de acesso' logo abaixo, configurando e-mail e senha).</li>
-                                    <li><strong>Ativo:</strong> O vendedor não acessa o ERP, mas pode ser selecionado nos pedidos de venda para fins de comissão.</li>
-                                    <li><strong>Inativo:</strong> Cadastro bloqueado para novas operações.</li>
-                                </ul>
+                        <ul>
+                            <li><strong>Cadastro da Empresa:</strong> Inserção de dados fiscais (CNPJ, IE, Endereço).
                             </li>
-                            <li>(Opcional) Vincule um depósito de estoque padrão que será afetado pelas vendas deste vendedor.</li>
-                            <li>Na aba <em>Comissões</em>, defina a taxa padrão ou utilize as regras de Linhas de Produto.</li>
-                            <li>Clique em <strong>Salvar</strong>.</li>
-                        </ol>
+                            <li><strong>Marketplaces:</strong> Como conectar as contas do Mercado Livre, Olist Store,
+                                Shopee, entre outros, para espelhamento automático.</li>
+                            <li><strong>Parâmetros ERP:</strong> Definição de regras globais de operação (padrões de
+                                nota fiscal, fuso horário, limites de concorrência de estoque).</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-            <!-- Card 1.2 -->
+            <!-- Módulo 2 -->
             <div class="glass-card">
-                <span class="tag">Operação</span>
-                <h3>1.2 Cadastro de Produtos Simples e Variações</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/x8GvPSRFxW8" allowfullscreen title="Tutorial Cadastro de Produtos"></iframe>
+                <div class="card-header">
+                    <span class="tag">Catálogo</span>
+                    <i class="fa-solid fa-box-open module-icon"></i>
                 </div>
+                <h3>Módulo 2: Produtos & Anúncios</h3>
+                <p>Gestão completa da vitrine digital e física. Métodos de criação e gerenciamento de SKUs.</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Cadastros > Produtos</strong> e clique em <strong>Incluir Produto</strong>.</li>
-                            <li>Para <strong>Produto Simples</strong>: Preencha a Descrição, SKU (Código interno essencial para integrações), Origem (Nacional/Estrangeira) e NCM (Obrigatórios para emissão de nota fiscal). Insira o valor no Preço de venda.</li>
-                            <li>Para produtos <strong>Com Variações</strong>: Altere a opção "Tipo" para "Com Variações". Um novo menu superior chamado "Variações" será liberado.</li>
-                            <li>Acesse a aba <em>Variações</em> e crie as grades (Ex: Tamanho, inserindo os valores P, M, G separados por vírgula; Cor, inserindo Preto, Vermelho).</li>
-                            <li>Ao salvar, o ERP cruzará automaticamente as grades gerando os SKUs filhos (cada variação será tratada como um produto individual no estoque).</li>
-                            <li>Acesse a aba <em>Dados Complementares</em> para inserir fotos (máx 2MB por imagem) ou URLs.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>Cadastro de Produtos:</strong> Fluxo manual, importação via planilha estruturada
+                                (Excel/CSV) e importação via XML de compras.</li>
+                            <li><strong>Variações (Grades):</strong> Criação de hierarquias de cor, tamanho, voltagem e
+                                cruzamento de SKUs filhos.</li>
+                            <li><strong>Anúncios Omni:</strong> Publicação em massa e gestão de status dos anúncios nas
+                                diferentes plataformas integradas.</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-            <!-- Card 1.3 -->
+            <!-- Módulo 3 -->
             <div class="glass-card">
-                <span class="tag">Precificação</span>
-                <h3>1.3 Gestor e Listas de Preços</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/y05jqjz1G9w" allowfullscreen title="Tutorial Gestão de Preços"></iframe>
+                <div class="card-header">
+                    <span class="tag">Financeiro</span>
+                    <i class="fa-solid fa-chart-pie module-icon"></i>
                 </div>
+                <h3>Módulo 3: Controle Financeiro</h3>
+                <p>Rotinas de fluxo de caixa, gestão de contas a pagar e receber, e reconciliação dos recebíveis online.
+                </p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <p>O recurso permite ter valores diferentes do mesmo produto para canais ou clientes distintos.</p>
-                        <ol>
-                            <li>Acesse <strong>Menu > Configurações > Cadastros > Listas de preços</strong>.</li>
-                            <li>Clique em <strong>Incluir lista de preço</strong>. Forneça um nome descritivo (Ex: Tabela Atacado, Tabela Loja Física).</li>
-                            <li>Defina a regra geral, se a lista terá um <em>acréscimo</em> ou <em>desconto</em> percentual (%) ou em valor real ($) sobre o preço base.</li>
-                            <li>Para aplicar em massa para Marketplaces: Acesse <strong>Cadastros > Produtos > Mais ações > Gerenciar preços dos anúncios</strong>.</li>
-                            <li>Você pode configurar para que o valor seja "Igual ao produto" ou definir um "Preço fixo", podendo aplicar regras de arredondamento inteligente e descontos agressivos por campanha.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>A Pagar e Receber:</strong> Conciliação diária de títulos gerados pelas vendas
+                                PDV ou e-commerce.</li>
+                            <li><strong>Fluxo de Caixa:</strong> Leitura de DRE gerencial básica e monitoramento das
+                                categorias de despesas (Plano de Contas).</li>
+                            <li><strong>Conta Digital Integrada:</strong> Uso da solução bancária do Olist para
+                                centralizar e agilizar o recebimento dos repasses de Marketplaces.</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
+            <!-- Módulo 4 -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <span class="tag">Fulfillment</span>
+                    <i class="fa-solid fa-truck-fast module-icon"></i>
+                </div>
+                <h3>Módulo 4: Fluxo de Pedidos & Automação</h3>
+                <p>Caminho de ponta a ponta desde a captação do pedido até a impressão da etiqueta de transporte e nota
+                    fiscal.</p>
+                <details>
+                    <summary>Ver Conteúdo</summary>
+                    <div class="step-content">
+                        <ul>
+                            <li><strong>Processamento:</strong> Recepção dos pedidos de diferentes canais numa esteira
+                                unificada.</li>
+                            <li><strong>Regras de Faturamento:</strong> Automação para envio do XML para a SEFAZ
+                                conforme o estado de origem/destino.</li>
+                            <li><strong>Expedição (Logística):</strong> Geração massiva ou unitária de etiquetas de
+                                frete (Correios, Transportadoras, Envios de Marketplaces).</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Módulo 5 -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <span class="tag">Inventário</span>
+                    <i class="fa-solid fa-cubes-stacked module-icon"></i>
+                </div>
+                <h3>Módulo 5: Gestão de Estoque</h3>
+                <p>Como garantir que o saldo físico e o saldo virtual espelhado estejam sempre matematicamente
+                    alinhados.</p>
+                <details>
+                    <summary>Ver Conteúdo</summary>
+                    <div class="step-content">
+                        <ul>
+                            <li><strong>Entradas e Saídas:</strong> Auditoria de movimentos manuais e reservas de
+                                estoque pendentes.</li>
+                            <li><strong>Sincronização:</strong> Gatilhos mecânicos para forçar ou pausar a atualização
+                                de estoque nos canais (Prevenção de Furo de Estoque).</li>
+                            <li><strong>Inventário (Auditoria):</strong> Procedimentos práticos (Conferência cega) para
+                                contagem periódica nos depósitos da loja.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+        </div> <!-- Fim Grid 1 -->
+
+        <!-- SESSÃO 2: TRILHAS DE CERTIFICAÇÃO PARA PARCEIROS -->
+        <div class="section-header">
+            <h2>Trilha 2: Certificação Avançada</h2>
+            <p>Masterclass Técnico - Direcionado a Consultores e Gerentes de E-commerce (Nível Partner)</p>
         </div>
-    </section>
 
-    <!-- MÓDULO 2 -->
-    <section class="module-section">
-        <h2 class="module-title">Módulo 2: O Ponto de Venda (Operação de Loja)</h2>
         <div class="grid-container">
-            
-            <!-- Card 2.1 -->
+
+            <!-- Track 1 & 2 -->
             <div class="glass-card">
-                <span class="tag">Caixa</span>
-                <h3>2.1 Abertura de Caixa e Vendas Rápidas</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/86iuTK6IzYY" allowfullscreen title="Tutorial Abertura de Caixa"></iframe>
+                <div class="card-header">
+                    <span class="tag">Expertize T1-T2</span>
+                    <i class="fa-solid fa-network-wired module-icon"></i>
                 </div>
+                <h3>Integrações & Catálogo Avançado</h3>
+                <p>Técnicas aprofundadas para criação de catálogos complexos e conexões via API/Webhooks.</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Vendas > PDV</strong>.</li>
-                            <li>Informe o valor do "fundo de troco" que está na gaveta e clique em <strong>Abrir Caixa</strong>.</li>
-                            <li>Para adicionar itens na venda, bipe os produtos com leitor ou busque pelo SKU/Nome no campo de pesquisa.</li>
-                            <li>(Opcional) Clique em <em>Informar cliente</em> ou aperte `F2` para identificar quem está comprando.</li>
-                            <li>Para agilizar, utilize o atalho de teclado <strong>Ctrl + 6</strong> para ir direto à tela de recebimento.</li>
-                            <li>Selecione a forma de pagamento (Dinheiro, Cartão, Múltiplas formas). Caso use integração (ex: Stone POS), o sistema envia o valor direto para a maquininha.</li>
-                            <li>Clique em Finalizar Venda para emitir o comprovante não fiscal ou faturar a NFC-e.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>Track 1 - Integrações:</strong> Análise de logs, regras de tributação na
+                                integração (CFOP dinâmico) e arquitetura de multi-loja.</li>
+                            <li><strong>Track 2 - Catálogo:</strong> Mapeamento de categorias e atributos obrigatórios,
+                                SEO para Marketplaces, e gestão massiva de planilhas.</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-            <!-- Card 2.2 -->
+            <!-- Track 3 & 4 -->
             <div class="glass-card">
-                <span class="tag">Atendimento</span>
-                <h3>2.2 Faturar uma Pré-Venda no PDV</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/86iuTK6IzYY" allowfullscreen title="Tutorial Faturar Pré-venda"></iframe>
+                <div class="card-header">
+                    <span class="tag">Expertize T3-T4</span>
+                    <i class="fa-solid fa-rotate module-icon"></i>
                 </div>
+                <h3>Sincronização & Cadeia de Suprimentos</h3>
+                <p>Estratégias de escalabilidade de anúncios (Kits, Bundles) e compras baseadas em giro (Lead Time).</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <p>Fluxo recomendado para lojas onde o vendedor atende no salão e direciona o cliente para pagar direto no operador de caixa.</p>
-                        <ol>
-                            <li><strong>Vendedor (Salão):</strong> Cria o pedido no ERP e clica na opção <strong>Salvar para depois</strong>. O pedido fica aguardando.</li>
-                            <li><strong>Operador de Caixa (PDV):</strong> Clica em <strong>Mais ações > Faturar pré-venda</strong>.</li>
-                            <li>Busca a venda utilizando o número do pedido, o CPF/CNPJ do cliente, nome ou telefone.</li>
-                            <li>Seleciona a venda e confirma os itens carregados em tela. <em>Nota: Se o vendedor deu um desconto além do permitido, será necessário liberar com a senha do gerente (Ctrl+Enter).</em></li>
-                            <li>Prossiga com o recebimento do pagamento e clique em <strong>Finalizar</strong> para a emissão da nota fiscal.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>Track 3 - Sincronização:</strong> Técnicas de precificação concorrencial
+                                automática, vinculação forçada de anúncios órfãos.</li>
+                            <li><strong>Track 4 - Suprimentos e Compras:</strong> Cálculo de necessidade de compra
+                                embasada na curva ABC de vendas; emissão de Ordens de Compra estruturadas; política de
+                                RMA (Devolução para fornecedores).</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-            <!-- Card 2.3 -->
+            <!-- Track 5 -->
             <div class="glass-card">
-                <span class="tag">Pós-Venda</span>
-                <h3>2.3 Devoluções e Vales-Troca</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/86iuTK6IzYY" allowfullscreen title="Tutorial Devoluções e Trocas"></iframe>
+                <div class="card-header">
+                    <span class="tag">Expertize T5</span>
+                    <i class="fa-solid fa-diagram-project module-icon"></i>
                 </div>
+                <h3>Operação Full (End-to-End)</h3>
+                <p>Domínio do macro processo. Integração fluida entre o PDV físico e o E-commerce corporativo.</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ol>
-                            <li>No PDV aberto, clique no botão <strong>Mais ações > Devolver produtos</strong>.</li>
-                            <li>No campo de pesquisa, busque a venda original pelo número da nota fiscal gerada, número do pedido original ou bipando o produto retornado.</li>
-                            <li>O sistema listará os itens daquela venda. Selecione a quantidade exata de itens que o cliente está devolvendo.</li>
-                            <li>Escolha a forma de compensação: 
-                                <ul>
-                                    <li><strong>Vale-Troca:</strong> O ERP gera um código alfanumérico atrelado ao cliente, que poderá ser resgatado como desconto na próxima compra.</li>
-                                    <li><strong>Dinheiro:</strong> O sistema dá baixa de saída no caixa atual para devolução da quantia em espécie.</li>
-                                </ul>
-                            </li>
-                            <li>Ao finalizar, o sistema estornará o produto, recolocando-o no estoque, e emitirá a nota de devolução.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>Track 5 - Full Operation:</strong> Orquestração de múltiplos usuários, delegação
+                                de permissões granulares por departamento (Caixa, Expedição, Gerência). Fluxos de
+                                contingência em caso de queda de integração (SEFAZ offline).</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-        </div>
-    </section>
-
-    <!-- MÓDULO 3 -->
-    <section class="module-section">
-        <h2 class="module-title">Módulo 3: Logística e Integrações</h2>
-        <div class="grid-container">
-            
-            <!-- Card 3.1 -->
+            <!-- Track 6 & 7 -->
             <div class="glass-card">
-                <span class="tag">Logística</span>
-                <h3>3.1 Separação e Embalagem (Picking/Packing)</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Fzn8FqX40Fw" allowfullscreen title="Tutorial Separação de Pedidos"></iframe>
+                <div class="card-header">
+                    <span class="tag">Expertize T6-T7</span>
+                    <i class="fa-solid fa-vault module-icon"></i>
                 </div>
+                <h3>Financiamento e Conta Digital</h3>
+                <p>Masterização das ferramentas bancárias integradas e relatórios para a diretoria contábil.</p>
                 <details>
-                    <summary>Ver Passo a Passo</summary>
+                    <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Vendas > Separação</strong>.</li>
-                            <li>Na aba <em>Aguardando separação</em>, selecione os pedidos liberados e envie para a aba <em>Em separação</em>.</li>
-                            <li>Imprima a lista de coleta consolidada para ir ao estoque recolher as mercadorias físicas (Picking).</li>
-                            <li>Ao retornar à bancada, acesse a aba <em>Separadas</em> e inicie o Checkout/Embalagem do pedido bipando os produtos individualmente para evitar erros de envio humano.</li>
-                            <li><strong>Automação Opcional:</strong> Se as configurações do PrintNode estiverem ativas, ao bipar a última unidade do pacote, o sistema autoriza a nota na Sefaz, imprime a DANFE e cospe a etiqueta de transporte automaticamente, movendo o pedido para a aba <em>Embaladas</em>.</li>
-                        </ol>
+                        <ul>
+                            <li><strong>Track 6 - Financeiro:</strong> Conciliação bancária via arquivo OFX dos bancos
+                                tradicionais, análises de centro de custos/lucros e relatórios de comissionamento de
+                                equipe.</li>
+                            <li><strong>Track 7 - Conta Digital:</strong> Otimização fiscal com recebíveis digitais
+                                nativos da Olist, transferências seguras e antecipações financeiras automatizadas.</li>
+                        </ul>
                     </div>
                 </details>
             </div>
 
-            <!-- Card 3.2 -->
-            <div class="glass-card">
-                <span class="tag">Suprimentos</span>
-                <h3>3.2 Conferência de Compra (Entrada de NF)</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Fzn8FqX40Fw" allowfullscreen title="Tutorial Conferência de Compra"></iframe>
-                </div>
-                <details>
-                    <summary>Ver Passo a Passo</summary>
-                    <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Suprimentos > Conferência de compra</strong>.</li>
-                            <li>Clique para importar o XML da nota fiscal enviada pelo seu fornecedor.</li>
-                            <li><em>Recomendação de Gestão:</em> Em Configurações, habilite a "Conferência Cega". Isso oculta a quantidade de itens descritos na NF, forçando a equipe a contar fisicamente as peças na doca.</li>
-                            <li>Bipe os produtos recebidos. Caso falte mercadoria, a nota irá para a aba <em>Com problema</em>. Se bater a contagem, vai para <em>Conferidos</em>.</li>
-                            <li>Por fim, na aba <em>Conferidos</em>, clique no menu de contexto (três pontos) ao lado da nota e execute <strong>Lançar Estoque</strong> para atualizar o inventário do ERP.</li>
-                        </ol>
-                    </div>
-                </details>
-            </div>
+        </div> <!-- Fim Grid 2 -->
 
-            <!-- Card 3.3 -->
-            <div class="glass-card">
-                <span class="tag">Relacionamento</span>
-                <h3>3.3 Gestão de CRM e Automação</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Fzn8FqX40Fw" allowfullscreen title="Tutorial CRM e Automação"></iframe>
-                </div>
-                <details>
-                    <summary>Ver Passo a Passo</summary>
-                    <div class="step-content">
-                        <ol>
-                            <li>Acesse <strong>Menu > Vendas > CRM</strong> para visualizar seu funil de negócios.</li>
-                            <li>Clique em <strong>Incluir assunto</strong>. Preencha o contato, a origem e classifique o estágio atual (ex: Prospecção, Negociação, Pós-venda).</li>
-                            <li>Dentro do "Assunto" criado, observe a <em>Linha do Tempo</em>. Aqui você pode registrar o histórico de conversas e criar "Ações" (tarefas) com datas limites para vendedores retornarem o contato.</li>
-                            <li>No menu de atalhos, você pode gerar rapidamente uma <strong>Proposta Comercial</strong>.</li>
-                            <li><strong>Dica Ninja:</strong> Ative a configuração <em>Compartilhar documento via WhatsApp</em> (Menu > Configurações > Aba Geral > Configuração do envio de documentos). Isso adiciona um atalho para enviar o link em PDF da proposta/nota fiscal direto para o número do cliente via WhatsApp Web/Desktop.</li>
-                        </ol>
-                    </div>
-                </details>
-            </div>
-
-        </div>
-    </section>
+        <!-- Footer -->
+        <footer>
+            Ecossistema &copy; 2026 <span>Live Consultoria | Casa Goianita</span>. Plataforma desenhada para performance
+            híbrida.
+        </footer>
+    </div>
 
 </body>
+
 </html>
