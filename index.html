@@ -478,14 +478,27 @@
                 <details>
                     <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ul>
-                            <li><strong>Cadastro da Empresa:</strong> Inserção de dados fiscais (CNPJ, IE, Endereço).
+                        <ol>
+                            <li>Acesse <strong>Menu > Cadastros > Vendedores</strong>.</li>
+                            <li>Clique em <strong>Incluir Vendedor</strong> no canto superior direito.</li>
+                            <li>Preencha os dados pessoais básicos. O único campo estritamente obrigatório nesta etapa
+                                inicial é o nome.</li>
+                            <li>No campo <em>Situação</em>, escolha:
+                                <ul>
+                                    <li><strong>Ativo com acesso ao sistema:</strong> Permite login próprio (exige que
+                                        você crie um "Usuário" associado na seção 'Dados de acesso' logo abaixo,
+                                        configurando e-mail e senha).</li>
+                                    <li><strong>Ativo:</strong> O vendedor não acessa o ERP, mas pode ser selecionado
+                                        nos pedidos de venda para fins de comissão.</li>
+                                    <li><strong>Inativo:</strong> Cadastro bloqueado para novas operações.</li>
+                                </ul>
                             </li>
-                            <li><strong>Marketplaces:</strong> Como conectar as contas do Mercado Livre, Olist Store,
-                                Shopee, entre outros, para espelhamento automático.</li>
-                            <li><strong>Parâmetros ERP:</strong> Definição de regras globais de operação (padrões de
-                                nota fiscal, fuso horário, limites de concorrência de estoque).</li>
-                        </ul>
+                            <li>(Opcional) Vincule um depósito de estoque padrão que será afetado pelas vendas deste
+                                vendedor.</li>
+                            <li>Na aba <em>Comissões</em>, defina a taxa padrão ou utilize as regras de Linhas de
+                                Produto.</li>
+                            <li>Clique em <strong>Salvar</strong>.</li>
+                        </ol>
                     </div>
                 </details>
             </div>
@@ -505,14 +518,21 @@
                 <details>
                     <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ul>
-                            <li><strong>Cadastro de Produtos:</strong> Fluxo manual, importação via planilha estruturada
-                                (Excel/CSV) e importação via XML de compras.</li>
-                            <li><strong>Variações (Grades):</strong> Criação de hierarquias de cor, tamanho, voltagem e
-                                cruzamento de SKUs filhos.</li>
-                            <li><strong>Anúncios Omni:</strong> Publicação em massa e gestão de status dos anúncios nas
-                                diferentes plataformas integradas.</li>
-                        </ul>
+                        <ol>
+                            <li>Acesse <strong>Menu > Cadastros > Produtos</strong> e clique em <strong>Incluir
+                                    Produto</strong>.</li>
+                            <li>Para <strong>Produto Simples</strong>: Preencha a Descrição, SKU (Código interno
+                                essencial para integrações), Origem (Nacional/Estrangeira) e NCM (Obrigatórios para
+                                emissão de nota fiscal). Insira o valor no Preço de venda.</li>
+                            <li>Para produtos <strong>Com Variações</strong>: Altere a opção "Tipo" para "Com
+                                Variações". Um novo menu superior chamado "Variações" será liberado.</li>
+                            <li>Acesse a aba <em>Variações</em> e crie as grades (Ex: Tamanho, inserindo os valores P,
+                                M, G separados por vírgula; Cor, inserindo Preto, Vermelho).</li>
+                            <li>Ao salvar, o ERP cruzará automaticamente as grades gerando os SKUs filhos (cada variação
+                                será tratada como um produto individual no estoque).</li>
+                            <li>Acesse a aba <em>Dados Complementares</em> para inserir fotos (máx 2MB por imagem) ou
+                                URLs.</li>
+                        </ol>
                     </div>
                 </details>
             </div>
@@ -533,14 +553,20 @@
                 <details>
                     <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ul>
-                            <li><strong>A Pagar e Receber:</strong> Conciliação diária de títulos gerados pelas vendas
-                                PDV ou e-commerce.</li>
-                            <li><strong>Fluxo de Caixa:</strong> Leitura de DRE gerencial básica e monitoramento das
-                                categorias de despesas (Plano de Contas).</li>
-                            <li><strong>Conta Digital Integrada:</strong> Uso da solução bancária do Olist para
-                                centralizar e agilizar o recebimento dos repasses de Marketplaces.</li>
-                        </ul>
+                        <p>O recurso permite ter valores diferentes do mesmo produto para canais ou clientes distintos.
+                        </p>
+                        <ol>
+                            <li>Acesse <strong>Menu > Configurações > Cadastros > Listas de preços</strong>.</li>
+                            <li>Clique em <strong>Incluir lista de preço</strong>. Forneça um nome descritivo (Ex:
+                                Tabela Atacado, Tabela Loja Física).</li>
+                            <li>Defina a regra geral, se a lista terá um <em>acréscimo</em> ou <em>desconto</em>
+                                percentual (%) ou em valor real ($) sobre o preço base.</li>
+                            <li>Para aplicar em massa para Marketplaces: Acesse <strong>Cadastros > Produtos > Mais
+                                    ações > Gerenciar preços dos anúncios</strong>.</li>
+                            <li>Você pode configurar para que o valor seja "Igual ao produto" ou definir um "Preço
+                                fixo", podendo aplicar regras de arredondamento inteligente e descontos agressivos por
+                                campanha.</li>
+                        </ol>
                     </div>
                 </details>
             </div>
@@ -561,14 +587,21 @@
                 <details>
                     <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ul>
-                            <li><strong>Processamento:</strong> Recepção dos pedidos de diferentes canais numa esteira
-                                unificada.</li>
-                            <li><strong>Regras de Faturamento:</strong> Automação para envio do XML para a SEFAZ
-                                conforme o estado de origem/destino.</li>
-                            <li><strong>Expedição (Logística):</strong> Geração massiva ou unitária de etiquetas de
-                                frete (Correios, Transportadoras, Envios de Marketplaces).</li>
-                        </ul>
+                        <p>Fluxo recomendado para lojas onde o vendedor atende no salão e direciona o cliente para pagar
+                            direto no operador de caixa.</p>
+                        <ol>
+                            <li><strong>Vendedor (Salão):</strong> Cria o pedido no ERP e clica na opção <strong>Salvar
+                                    para depois</strong>. O pedido fica aguardando.</li>
+                            <li><strong>Operador de Caixa (PDV):</strong> Clica em <strong>Mais ações > Faturar
+                                    pré-venda</strong>.</li>
+                            <li>Busca a venda utilizando o número do pedido, o CPF/CNPJ do cliente, nome ou telefone.
+                            </li>
+                            <li>Seleciona a venda e confirma os itens carregados em tela. <em>Nota: Se o vendedor deu um
+                                    desconto além do permitido, será necessário liberar com a senha do gerente
+                                    (Ctrl+Enter).</em></li>
+                            <li>Prossiga com o recebimento do pagamento e clique em <strong>Finalizar</strong> para a
+                                emissão da nota fiscal.</li>
+                        </ol>
                     </div>
                 </details>
             </div>
@@ -589,14 +622,17 @@
                 <details>
                     <summary>Ver Conteúdo</summary>
                     <div class="step-content">
-                        <ul>
-                            <li><strong>Entradas e Saídas:</strong> Auditoria de movimentos manuais e reservas de
-                                estoque pendentes.</li>
-                            <li><strong>Sincronização:</strong> Gatilhos mecânicos para forçar ou pausar a atualização
-                                de estoque nos canais (Prevenção de Furo de Estoque).</li>
-                            <li><strong>Inventário (Auditoria):</strong> Procedimentos práticos (Conferência cega) para
-                                contagem periódica nos depósitos da loja.</li>
-                        </ul>
+                        <ol>
+                            <li>Acesse <strong>Menu > Suprimentos > Conferência de compra</strong>.</li>
+                            <li>Clique para importar o XML da nota fiscal enviada pelo seu fornecedor.</li>
+                            <li><em>Recomendação de Gestão:</em> Em Configurações, habilite a "Conferência Cega". Isso
+                                oculta a quantidade de itens descritos na NF, forçando a equipe a contar fisicamente as
+                                peças na doca.</li>
+                            <li>Bipe os produtos recebidos. Caso falte mercadoria, a nota irá para a aba <em>Com
+                                    problema</em>. Se bater a contagem, vai para <em>Conferidos</em>.</li>
+                            <li>Por fim, na aba <em>Conferidos</em>, clique no menu de contexto (três pontos) ao lado da
+                                nota e execute <strong>Lançar Estoque</strong> para atualizar o inventário do ERP.</li>
+                        </ol>
                     </div>
                 </details>
             </div>
